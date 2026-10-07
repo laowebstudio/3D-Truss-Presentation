@@ -29,6 +29,7 @@
       <a href="#method">ຂັ້ນຕອນ</a>
       <a href="#formula">ສູດ</a>
       <a href="#code">Code</a>
+      <a href="#results">ຜົນລັບ</a>
     </nav>
   </header>
 
@@ -222,13 +223,64 @@ print(f"{m}: {f:.2f} ({typ})")</code></pre><p>ຖ້າ q ເປັນບວກ 
       </div>
     </section>
 
-    <section class="section presentation-section">
-      <div class="presentation-card reveal">
-        <p class="eyebrow">05 · HOW TO PRESENT</p>
-        <h2>ປະໂຫຍກສັ້ນໆສຳລັບ Present ຕໍ່ອາຈານ</h2>
-        <div class="script-box">
-          <p>“ໂຈດນີ້ແມ່ນ 3D Truss. ຂ້ອຍໃຊ້ Direct Stiffness Method. ກ່ອນອື່ນຂ້ອຍກຳນົດພິກັດ Node ແລະ connectivity ຂອງ Members. ຫຼັງຈາກນັ້ນຂ້ອຍຫາ length ແລະ direction cosines l, m, n ເພື່ອສ້າງ element stiffness matrix. ຈາກນັ້ນລວມທຸກ element ເປັນ global stiffness matrix [K]. ຂ້ອຍໃສ່ load ທີ່ G, ກຳນົດ supports A, B, C, D, ແລ້ວແກ້ [Kff]{Df}={Ff}. ສຸດທ້າຍໃຊ້ displacement ທີ່ໄດ້ໄປຄຳນວນ axial force ຂອງແຕ່ລະ member ແລະຈັດປະເພດເປັນ Tension ຫຼື Compression.”</p>
+    <section class="section results-section" id="results">
+      <div class="section-head reveal">
+        <p class="eyebrow">05 · ANALYSIS RESULTS</p>
+        <h2>ສະຫຼຸບຜົນທີ່ໄດ້ຈາກ Code</h2>
+        <p>ຜົນລັບຕໍ່ໄປນີ້ໄດ້ຈາກ Code Python ຊຸດດຽວກັບທີ່ນຳສະເໜີ ໂດຍກຳນົດ Load ທີ່ Node G: Fy = −70 ແລະ Fz = −40.</p>
+      </div>
+
+      <div class="result-hero reveal">
+        <div>
+          <span class="result-kicker">KEY RESULT</span>
+          <h3>Member GC ແລະ GD ຮັບແຮງສູງສຸດ</h3>
+          <p>ຂະໜາດແຮງເທົ່າກັນ <b>78.26</b> ແຕ່ມີສະຖານະຕ່າງກັນ: GC ເປັນ Compression ແລະ GD ເປັນ Tension.</p>
         </div>
+        <div class="result-number">78.26<span>Force unit</span></div>
+      </div>
+
+      <div class="results-grid">
+        <article class="result-card compression reveal"><span>GE</span><strong>−40.00</strong><small>Compression · ແຮງອັດ</small></article>
+        <article class="result-card compression reveal"><span>GC</span><strong>−78.26</strong><small>Compression · ແຮງອັດ</small></article>
+        <article class="result-card tension reveal"><span>GD</span><strong>+78.26</strong><small>Tension · ແຮງດຶງ</small></article>
+        <article class="result-card zero reveal"><span>EB</span><strong>≈ 0.00</strong><small>Zero-force member</small></article>
+        <article class="result-card compression reveal"><span>EA</span><strong>−44.72</strong><small>Compression · ແຮງອັດ</small></article>
+        <article class="result-card tension reveal"><span>ED</span><strong>+60.00</strong><small>Tension · ແຮງດຶງ</small></article>
+      </div>
+
+      <div class="result-table-wrap reveal">
+        <div class="table-title"><span>MEMBER FORCE SUMMARY</span><small>+ = Tension · − = Compression</small></div>
+        <table class="result-table">
+          <thead><tr><th>Member</th><th>Axial Force</th><th>ປະເພດ</th><th>ຄວາມໝາຍ</th></tr></thead>
+          <tbody>
+            <tr><td>GE</td><td>−40.00</td><td><b class="tag c">Compression</b></td><td>Member ຖືກອັດ</td></tr>
+            <tr><td>GC</td><td>−78.26</td><td><b class="tag c">Compression</b></td><td>ແຮງອັດສູງສຸດ</td></tr>
+            <tr><td>GD</td><td>+78.26</td><td><b class="tag t">Tension</b></td><td>ແຮງດຶງສູງສຸດ</td></tr>
+            <tr><td>EB</td><td>≈ 0.00</td><td><b class="tag z">Zero-force</b></td><td>ແທບບໍ່ມີ axial force</td></tr>
+            <tr><td>EA</td><td>−44.72</td><td><b class="tag c">Compression</b></td><td>Member ຖືກອັດ</td></tr>
+            <tr><td>ED</td><td>+60.00</td><td><b class="tag t">Tension</b></td><td>Member ຖືກດຶງ</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="displacement-box reveal">
+        <div>
+          <p class="eyebrow">DISPLACEMENT OUTPUT</p>
+          <h3>ຄ່າ Displacement ທີ່ Code ຄຳນວນໄດ້</h3>
+          <p>Node A, B, C, D ເປັນ supports ດັ່ງນັ້ນ displacement = 0. ສ່ວນ Nodes E ແລະ G ເປັນ free nodes.</p>
+        </div>
+        <div class="disp-list">
+          <div><b>E</b><code>[-111.80, 223.61, -763.61]</code></div>
+          <div><b>G</b><code>[0.00, -782.62, -923.61]</code></div>
+          <div><b>A,B,C,D</b><code>[0, 0, 0]</code></div>
+        </div>
+        <p class="result-note"><b>ໝາຍເຫດ:</b> Code ກຳນົດ E = 1 ແລະ A = 1, ດັ່ງນັ້ນ displacement ຂ້າງເທິງເປັນຄ່າ normalized ສຳລັບສາທິດວິທີຄຳນວນ ບໍ່ແມ່ນການເຄື່ອນຕົວຈິງຂອງໂຄງສ້າງ. ສຳລັບ displacement ຈິງຕ້ອງໃສ່ E, A ແລະຫົວໜ່ວຍທີ່ຖືກຕ້ອງ.</p>
+      </div>
+
+      <div class="summary-strip reveal">
+        <div><span>ສູງສຸດ Compression</span><strong>GC = −78.26</strong></div>
+        <div><span>ສູງສຸດ Tension</span><strong>GD = +78.26</strong></div>
+        <div><span>Zero-force</span><strong>EB ≈ 0</strong></div>
       </div>
     </section>
 
