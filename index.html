@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="3D Truss Structure Analysis presentation using Direct Stiffness Method" />
+  <title>3D Truss Structure Analysis | Direct Stiffness Method</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <header class="topbar">
+    <a href="#top" class="brand">
+      <span class="brand-mark">SA</span>
+      <span>STRUCTURE ANALYSIS</span>
+    </a>
+    <nav>
+      <a href="#problem">ໂຈດ</a>
+      <a href="#method">ຂັ້ນຕອນ</a>
+      <a href="#formula">ສູດ</a>
+      <a href="#code">Code</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">CIVIL ENGINEERING · STRUCTURAL ANALYSIS</p>
+          <h1>3D TRUSS<br><span>DIRECT STIFFNESS METHOD</span></h1>
+          <p class="lead">ການວິເຄາະໂຄງຂໍ້ໝຸນ 3 ມິຕິ ໂດຍໃຊ້ Global Stiffness Matrix ແລະ Python</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#problem">ເລີ່ມນຳສະເໜີ</a>
+            <a class="btn ghost" href="#formula">ເບິ່ງສູດທັງໝົດ</a>
+          </div>
+          <div class="hero-meta">
+            <div><strong>6</strong><span>Members</span></div>
+            <div><strong>6</strong><span>Nodes</span></div>
+            <div><strong>18</strong><span>Global DOF</span></div>
+          </div>
+        </div>
+        <div class="hero-card reveal delay-1">
+          <div class="card-glow"></div>
+          <div class="mini-title">CORE EQUATION</div>
+          <div class="equation big">\[\{F\}=[K]\{D\}\]</div>
+          <p>ແຮງ = Stiffness × Displacement</p>
+          <div class="divider"></div>
+          <p class="muted">ນີ້ແມ່ນຫົວໃຈຂອງ Direct Stiffness Method</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="problem" class="section problem-section">
+      <div class="section-head reveal">
+        <p class="eyebrow">01 · PROBLEM</p>
+        <h2>ໂຈດທີ່ອາຈານກຳນົດ</h2>
+        <p>ໂຄງ Truss 3 ມິຕິ ປະກອບດ້ວຍຈຸດ A–G ແລະຮັບແຮງທີ່ຈຸດ G.</p>
+      </div>
+      <div class="problem-grid">
+        <div class="image-frame reveal">
+          <img src="assets/problem.jpeg" alt="3D truss problem with nodes A B C D E G" />
+          <span class="image-label">ORIGINAL ASSIGNMENT</span>
+        </div>
+        <div class="problem-data reveal delay-1">
+          <div class="data-card">
+            <span>LOAD @ G</span>
+            <strong>70 Ton</strong>
+            <small>ແຮງຕາມແກນ y ຕາມທິດທາງທີ່ກຳນົດ</small>
+          </div>
+          <div class="data-card">
+            <span>LOAD @ G</span>
+            <strong>40 Ton</strong>
+            <small>ແຮງຕາມແກນ z ລົງລຸ່ມ</small>
+          </div>
+          <div class="data-card">
+            <span>SUPPORTS</span>
+            <strong>A · B · C · D</strong>
+            <small>ໃນ Code ຖືກກຳນົດໃຫ້ DOF ທັງ 3 ທິດຂອງ 4 ຈຸດນີ້ເປັນ 0</small>
+          </div>
+          <div class="data-card gold">
+            <span>GOAL</span>
+            <strong>Member Forces</strong>
+            <small>ຫາແຮງດຶງ (Tension) ແລະ ແຮງອັດ (Compression) ໃນແຕ່ລະສະມາຊິກ</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="method" class="section method-section">
+      <div class="section-head reveal">
+        <p class="eyebrow">02 · WORKFLOW</p>
+        <h2>ລຳດັບການຄິດຕາມ Code</h2>
+        <p>Code ທີ່ໃຊ້ບໍ່ໄດ້ສຸ່ມຄຳນວນ — ມັນເຮັດຕາມຫຼັກ Direct Stiffness Method ຢ່າງເປັນລຳດັບ.</p>
+      </div>
+      <div class="timeline">
+        <article class="step reveal"><span>01</span><h3>Node Coordinates</h3><p>ກຳນົດຕຳແໜ່ງ x, y, z ຂອງທຸກ Node.</p></article>
+        <article class="step reveal"><span>02</span><h3>Members</h3><p>ກຳນົດວ່າ Node ໃດເຊື່ອມກັບ Node ໃດ.</p></article>
+        <article class="step reveal"><span>03</span><h3>Material</h3><p>ກຳນົດ Modulus of Elasticity E ແລະ Area A.</p></article>
+        <article class="step reveal"><span>04</span><h3>DOF Mapping</h3><p>1 Node ມີ 3 DOF: uₓ, uᵧ, u_z.</p></article>
+        <article class="step reveal"><span>05</span><h3>Element Stiffness</h3><p>ສ້າງ 6×6 stiffness matrix ຂອງແຕ່ລະ Member.</p></article>
+        <article class="step reveal"><span>06</span><h3>Assembly</h3><p>ລວມ element matrices ເຂົ້າ Global Matrix [K].</p></article>
+        <article class="step reveal"><span>07</span><h3>Force Vector</h3><p>ສ້າງ {F} ແລະໃສ່ Loads ທີ່ Node G.</p></article>
+        <article class="step reveal"><span>08</span><h3>Boundary Conditions</h3><p>Lock DOF ຂອງ Supports A, B, C, D.</p></article>
+        <article class="step reveal"><span>09</span><h3>Solve Displacement</h3><p>ແກ້ [Kff]{Df}={Ff} ເພື່ອຫາ Displacement.</p></article>
+        <article class="step reveal"><span>10</span><h3>Member Force</h3><p>ໃຊ້ Displacement ໄປຫາ axial force ຂອງແຕ່ລະ Member.</p></article>
+        <article class="step reveal"><span>11</span><h3>Output</h3><p>ສະແດງ Displacement ແລະ Tension/Compression.</p></article>
+      </div>
+    </section>
+
+    <section id="formula" class="section formula-section">
+      <div class="section-head reveal">
+        <p class="eyebrow">03 · FORMULAS</p>
+        <h2>ອະທິບາຍສູດຕາມລຳດັບໃນ Code</h2>
+      </div>
+
+      <div class="formula-list">
+        <article class="formula-card reveal">
+          <div class="formula-no">01</div>
+          <div class="formula-body"><h3>ພິກັດ Node</h3><p>ແຕ່ລະຈຸດເກັບເປັນ Vector 3 ມິຕິ:</p><div class="equation">\[\mathbf{x}_i=[x_i\; y_i\; z_i]^T\]</div><p class="explain">ຕົວຢ່າງ G = [4, 0, 4]. ຄ່ານີ້ໃຊ້ເພື່ອຫາຄວາມຍາວ ແລະທິດທາງຂອງ Member.</p></div>
+        </article>
+
+        <article class="formula-card reveal">
+          <div class="formula-no">02</div>
+          <div class="formula-body"><h3>Vector ແລະຄວາມຍາວຂອງ Member</h3><div class="equation">\[\mathbf{L}=\mathbf{x}_2-\mathbf{x}_1\]</div><div class="equation">\[L=\sqrt{(\Delta x)^2+(\Delta y)^2+(\Delta z)^2}\]</div><p class="explain">ຫາ Vector ຈາກ Node 1 ໄປ Node 2 ແລ້ວຫາຂະໜາດຂອງ Vector ນັ້ນ.</p></div>
+        </article>
+
+        <article class="formula-card reveal">
+          <div class="formula-no">03</div>
+          <div class="formula-body"><h3>Direction Cosines</h3><div class="equation">\[l=\frac{\Delta x}{L},\qquad m=\frac{\Delta y}{L},\qquad n=\frac{\Delta z}{L}\]</div><p class="explain">l, m, n ບອກວ່າ Member ເອຽງໄປຕາມແກນ x, y, z ຫຼາຍປານໃດ.</p></div>
+        </article>
+
+        <article class="formula-card reveal highlight">
+          <div class="formula-no">04</div>
+          <div class="formula-body"><h3>Element Stiffness Matrix — 3D Truss</h3><p>ສະມາຊິກ 1 ອັນມີ 2 Nodes × 3 DOF = 6 DOF.</p><div class="equation matrix">\[\mathbf{k}^{(e)}=\frac{EA}{L}\begin{bmatrix}l^2&lm&ln&-l^2&-lm&-ln\\lm&m^2&mn&-lm&-m^2&-mn\\ln&mn&n^2&-ln&-mn&-n^2\\-l^2&-lm&-ln&l^2&lm&ln\\-lm&-m^2&-mn&lm&m^2&mn\\-ln&-mn&-n^2&ln&mn&n^2\end{bmatrix}\]</div><p class="explain"><b>E</b> = Modulus of Elasticity, <b>A</b> = ພື້ນທີ່ໜ້າຕັດ, <b>L</b> = ຄວາມຍາວ Member. ຖ້າ EA ໃຫຍ່ ສະມາຊິກຈະແຂງກວ່າ.</p></div>
+        </article>
+
+        <article class="formula-card reveal">
+          <div class="formula-no">05</div>
+          <div class="formula-body"><h3>Global Assembly</h3><div class="equation">\[[K]=\sum_e [k^{(e)}]\]</div><p class="explain">ບໍ່ແມ່ນບວກ Matrix ຕົງໆທັງໝົດ. Code ໃຊ້ DOF mapping ເພື່ອນຳຄ່າຂອງ element ໄປວາງໃນຕຳແໜ່ງທີ່ຖືກໃນ Global Matrix.</p></div>
+        </article>
+
+        <article class="formula-card reveal">
+          <div class="formula-no">06</div>
+          <div class="formula-body"><h3>ສົມການຫຼັກຂອງໂຄງສ້າງ</h3><div class="equation hero-eq">\[\{F\}=[K]\{D\}\]</div><p class="explain">{F} = nodal force vector, [K] = global stiffness matrix, {D} = nodal displacement vector.</p></div>
+        </article>
+
+        <article class="formula-card reveal">
+          <div class="formula-no">07</div>
+          <div class="formula-body"><h3>Boundary Conditions ແລະ Reduced System</h3><div class="equation">\[[K_{ff}]\{D_f\}=\{F_f\}\]</div><div class="equation">\[\{D_f\}=[K_{ff}]^{-1}\{F_f\}\]</div><p class="explain">f = free DOF. Fixed DOF ຂອງ A, B, C, D ມີ displacement = 0, ຈຶ່ງເຫຼືອສະເພາະສ່ວນທີ່ຕ້ອງແກ້.</p></div>
+        </article>
+
+        <article class="formula-card reveal highlight">
+          <div class="formula-no">08</div>
+          <div class="formula-body"><h3>Axial Force ໃນ Member</h3><div class="equation">\[q=\frac{EA}{L}\begin{bmatrix}-l&-m&-n&l&m&n\end{bmatrix}\{D_e\}\]</div><p class="explain">ນຳ displacement 6 DOF ຂອງ 2 Nodes ທີ່ປາຍ Member ມາ project ໃສ່ແນວແກນຂອງ Member.</p><div class="sign-grid"><div><b>q &gt; 0</b><span>Tension · ແຮງດຶງ</span></div><div><b>q &lt; 0</b><span>Compression · ແຮງອັດ</span></div></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section code-explain" id="code">
+      <div class="section-head reveal">
+        <p class="eyebrow">04 · PYTHON WALKTHROUGH</p>
+        <h2>ອ່ານ Code ໃຫ້ເປັນພາສາວິສະວະກຳ</h2>
+        <p>ເວລາ Present ບໍ່ຈຳເປັນອະທິບາຍ Syntax Python ທຸກຕົວ. ໃຫ້ອະທິບາຍວ່າແຕ່ລະ Block ກຳລັງເຮັດຫຍັງທາງ Structural Analysis.</p>
+      </div>
+      <div class="code-layout">
+        <aside class="code-nav reveal">
+          <button class="active" data-target="c1">01 Nodes</button><button data-target="c2">02 Members</button><button data-target="c3">03 Material</button><button data-target="c4">04 DOF</button><button data-target="c5">05 Stiffness</button><button data-target="c6">06 Assembly</button><button data-target="c7">07 Load</button><button data-target="c8">08 Supports</button><button data-target="c9">09 Solve</button><button data-target="c10">10 Force</button><button data-target="c11">11 Output</button>
+        </aside>
+        <div class="code-panels reveal delay-1">
+          <section class="code-panel active" id="c1"><h3>01 · NODE COORDINATES</h3><pre><code>nodes = {
+ 'E': np.array([4,0,0]),
+ 'G': np.array([4,0,4]),
+ 'B': np.array([0,-2,0]),
+ 'C': np.array([0,-2,4]),
+ 'A': np.array([0,2,0]),
+ 'D': np.array([0,2,4])
+}</code></pre><p>ສ້າງ Coordinate ຂອງທຸກ Node ໃນຮູບ [x, y, z]. ນີ້ແມ່ນ Geometry input.</p></section>
+          <section class="code-panel" id="c2"><h3>02 · MEMBERS</h3><pre><code>members = [
+ ('G','E'), ('G','C'), ('G','D'),
+ ('E','B'), ('E','A'), ('E','D')
+]</code></pre><p>ແຕ່ລະ tuple ແມ່ນ 1 Member. ຕົວຢ່າງ ('G','E') ໝາຍເຖິງ Member GE.</p></section>
+          <section class="code-panel" id="c3"><h3>03 · MATERIAL</h3><pre><code>E_mod = 1.0
+A = 1.0</code></pre><p>ກຳນົດ E ແລະ A. ໃນ code ນີ້ໃຊ້ 1.0 ເພື່ອສາທິດແບບ normalized; ຖ້າຫາ displacement ຈິງ ຕ້ອງໃສ່ E ແລະ A ຕາມຫົວໜ່ວຍຈິງ.</p></section>
+          <section class="code-panel" id="c4"><h3>04 · DOF MAPPING</h3><pre><code>dof_map = {n: [3*i, 3*i+1, 3*i+2]
+           for i,n in enumerate(node_list)}
+ndof = 3 * len(nodes)</code></pre><p>3D Truss 1 Node ມີ 3 translational DOF. 6 Nodes ⇒ 18 DOF.</p></section>
+          <section class="code-panel" id="c5"><h3>05 · ELEMENT STIFFNESS</h3><pre><code>L_vec = x2 - x1
+L = np.linalg.norm(L_vec)
+l, m, n = L_vec / L
+
+k = (E_mod*A/L) * np.array([...])</code></pre><p>ຫາ Member vector, length, direction cosines ແລະສ້າງ 6×6 stiffness matrix.</p></section>
+          <section class="code-panel" id="c6"><h3>06 · ASSEMBLY</h3><pre><code>for (n1, n2) in members:
+    k = element_stiffness(n1, n2)
+    dofs = dof_map[n1] + dof_map[n2]
+    ...
+    K[dofs[i], dofs[j]] += k[i,j]</code></pre><p>ວາງ stiffness ຂອງແຕ່ລະ member ເຂົ້າຕຳແໜ່ງຂອງ Global [K].</p></section>
+          <section class="code-panel" id="c7"><h3>07 · FORCE VECTOR</h3><pre><code>F = np.zeros(ndof)
+F[dof_map['G'][1]] = -70
+F[dof_map['G'][2]] = -40</code></pre><p>ສ້າງ vector ແຮງຂະໜາດ 18 ແລ້ວໃສ່ load ທີ່ DOF y ແລະ z ຂອງ Node G.</p></section>
+          <section class="code-panel" id="c8"><h3>08 · BOUNDARY CONDITIONS</h3><pre><code>fixed_nodes = ['A','B','C','D']
+fixed_dofs = []
+for n in fixed_nodes:
+    fixed_dofs += dof_map[n]</code></pre><p>Node A, B, C, D ຖືກມອງເປັນ supports ແລະ lock 3 DOF ຕໍ່ Node.</p></section>
+          <section class="code-panel" id="c9"><h3>09 · SOLVE DISPLACEMENTS</h3><pre><code>K_ff = K[np.ix_(free_dofs, free_dofs)]
+F_ff = F[free_dofs]
+D_free = np.linalg.solve(K_ff, F_ff)</code></pre><p>ເລືອກສະເພາະ free DOF ແລ້ວແກ້ linear equations ເພື່ອຫາ displacement.</p></section>
+          <section class="code-panel" id="c10"><h3>10 · MEMBER FORCE</h3><pre><code>T = np.array([-l,-m,-n,l,m,n])
+q = (E_mod*A/L) * np.dot(T, u)</code></pre><p>Project nodal displacement ເຂົ້າແນວ Member ແລ້ວຄູນ EA/L ເພື່ອຫາ axial force.</p></section>
+          <section class="code-panel" id="c11"><h3>11 · OUTPUT</h3><pre><code>typ = "Tension" if f &gt; 0 else "Compression"
+print(f"{m}: {f:.2f} ({typ})")</code></pre><p>ຖ້າ q ເປັນບວກ ລາຍງານ Tension; ຖ້າເປັນລົບ ລາຍງານ Compression.</p></section>
+        </div>
+      </div>
+    </section>
+
+    <section class="section presentation-section">
+      <div class="presentation-card reveal">
+        <p class="eyebrow">05 · HOW TO PRESENT</p>
+        <h2>ປະໂຫຍກສັ້ນໆສຳລັບ Present ຕໍ່ອາຈານ</h2>
+        <div class="script-box">
+          <p>“ໂຈດນີ້ແມ່ນ 3D Truss. ຂ້ອຍໃຊ້ Direct Stiffness Method. ກ່ອນອື່ນຂ້ອຍກຳນົດພິກັດ Node ແລະ connectivity ຂອງ Members. ຫຼັງຈາກນັ້ນຂ້ອຍຫາ length ແລະ direction cosines l, m, n ເພື່ອສ້າງ element stiffness matrix. ຈາກນັ້ນລວມທຸກ element ເປັນ global stiffness matrix [K]. ຂ້ອຍໃສ່ load ທີ່ G, ກຳນົດ supports A, B, C, D, ແລ້ວແກ້ [Kff]{Df}={Ff}. ສຸດທ້າຍໃຊ້ displacement ທີ່ໄດ້ໄປຄຳນວນ axial force ຂອງແຕ່ລະ member ແລະຈັດປະເພດເປັນ Tension ຫຼື Compression.”</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-section">
+      <div class="final reveal">
+        <p class="eyebrow">CONCLUSION</p>
+        <h2>Geometry → Stiffness → Load → Displacement → Member Force</h2>
+        <p>ຖ້າເຂົ້າໃຈ 5 ຄຳນີ້ ກໍສາມາດອະທິບາຍ Code ຊຸດນີ້ໄດ້ທັງໝົດ.</p>
+        <a href="#top" class="btn primary">ກັບໄປດ້ານເທິງ ↑</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>3D TRUSS · DIRECT STIFFNESS METHOD</span>
+    <span>Academic Presentation Website</span>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
