@@ -67,3 +67,232 @@ p,li,small,td,th{font-synthesis-weight:none}
   .result-hero p{font-size:20px}
   .result-table th,.result-table td{padding:17px 18px}
 }
+
+/* V4 PROJECTOR: EXTRA-LARGE RESULT TABLE */
+#results .result-table-wrap{
+  width:100%;
+  margin-top:52px;
+  border:2px solid rgba(217,184,108,.62);
+  background:#070707;
+  box-shadow:0 18px 60px rgba(0,0,0,.35);
+}
+#results .table-title{
+  padding:28px 34px;
+  font-size:clamp(22px,2vw,30px);
+  font-weight:900;
+  letter-spacing:.08em;
+  align-items:center;
+  background:rgba(217,184,108,.08);
+}
+#results .table-title small{
+  font-size:clamp(18px,1.4vw,23px);
+  color:#fff;
+  font-weight:800;
+}
+#results .result-table{
+  width:100%;
+  table-layout:fixed;
+}
+#results .result-table th{
+  padding:25px 30px;
+  font-size:clamp(20px,1.65vw,27px);
+  color:#f8f4ec;
+  font-weight:900;
+  background:#111;
+  border-bottom:2px solid rgba(217,184,108,.35);
+}
+#results .result-table td{
+  padding:27px 30px;
+  font-size:clamp(24px,2vw,32px);
+  line-height:1.35;
+  color:#fff;
+  border-bottom:1px solid #333;
+  vertical-align:middle;
+}
+#results .result-table td:nth-child(1){
+  width:12%;
+  font-size:clamp(28px,2.2vw,36px);
+  color:var(--gold);
+  font-weight:900;
+}
+#results .result-table td:nth-child(2){
+  width:20%;
+  font-size:clamp(28px,2.3vw,38px);
+  font-weight:900;
+  white-space:nowrap;
+}
+#results .result-table th:nth-child(1){width:12%}
+#results .result-table th:nth-child(2){width:20%}
+#results .result-table th:nth-child(3){width:24%}
+#results .result-table th:nth-child(4){width:44%}
+#results .tag{
+  font-size:clamp(20px,1.6vw,26px);
+  font-weight:900;
+  padding:10px 15px;
+  white-space:nowrap;
+}
+@media (max-width:1100px){
+  #results .result-table{min-width:980px}
+  #results .result-table-wrap{overflow-x:auto}
+}
+
+/* =========================================================
+   V5 · LUXURY NAVY / BURGUNDY / COPPER THEME
+   Inspired by the provided reference image while preserving
+   high projector contrast and the V4 large results table.
+   ========================================================= */
+:root{
+  --bg:#080b16;
+  --bg2:#0d1325;
+  --card:#11182b;
+  --card2:#171225;
+  --line:rgba(255,255,255,.12);
+  --text:#fffaf3;
+  --muted:#d7d9e3;
+  --gold:#e6784d;
+  --gold2:#f2a16f;
+  --navy:#111a35;
+  --navy2:#1d294a;
+  --wine:#641b38;
+  --wine2:#8d2c43;
+  --copper:#c95734;
+  --cream:#fff8ee;
+}
+
+body{
+  background:
+    radial-gradient(ellipse at 7% 8%, rgba(148,42,61,.52) 0%, rgba(148,42,61,0) 30%),
+    radial-gradient(ellipse at 34% 2%, rgba(207,90,43,.42) 0%, rgba(207,90,43,0) 26%),
+    radial-gradient(ellipse at 78% 10%, rgba(47,70,119,.58) 0%, rgba(47,70,119,0) 34%),
+    radial-gradient(ellipse at 92% 46%, rgba(154,45,55,.26) 0%, rgba(154,45,55,0) 33%),
+    linear-gradient(145deg,#070a14 0%,#11152a 48%,#0a0d1a 100%);
+  background-attachment:fixed;
+  color:var(--text);
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.8;
+  background:
+    radial-gradient(70% 28% at 18% 26%, rgba(199,74,54,.18), transparent 62%),
+    radial-gradient(62% 28% at 56% 37%, rgba(105,24,55,.22), transparent 65%),
+    radial-gradient(70% 28% at 78% 62%, rgba(35,53,96,.32), transparent 62%);
+}
+.progress{background:linear-gradient(90deg,#b53148,#e46f45,#f2aa79)}
+.topbar{
+  background:rgba(7,10,20,.88);
+  border-bottom:1px solid rgba(235,126,79,.24);
+  box-shadow:0 10px 35px rgba(0,0,0,.22);
+}
+.brand-mark{border-color:#e87b50;color:#f4a173;background:linear-gradient(145deg,rgba(139,38,58,.22),rgba(34,48,87,.3))}
+.topbar nav a{color:#f5ede7}.topbar nav a:hover{color:#ff9c70}
+
+.hero-card,.data-card.gold,.result-hero,.presentation-card,.displacement-box{
+  background:
+    linear-gradient(135deg,rgba(116,24,53,.22),rgba(28,40,74,.44) 48%,rgba(185,71,43,.13));
+  border-color:rgba(238,126,77,.42);
+  box-shadow:0 22px 70px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.035);
+}
+.card-glow{background:#c9463e;opacity:.15}
+
+.btn.primary{
+  background:linear-gradient(135deg,#c4443e,#e87848);
+  color:white;
+  border-color:#ef8b5a;
+  box-shadow:0 12px 35px rgba(198,69,60,.22);
+}
+.btn.ghost{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.18)}
+.btn.ghost:hover{border-color:#f18b5e;color:#ffd6c3}
+
+.eyebrow,.mini-title,.result-kicker,.formula-no,.hero-meta strong,
+.data-card.gold strong,.code-panel h3,.disp-list b,
+.result-table td:nth-child(1),.table-title,.tag.t{
+  color:#f08a60!important;
+}
+.hero h1 span{color:transparent;-webkit-text-stroke:1.4px #f08a60}
+.divider{background:linear-gradient(90deg,#e9694a,#7f2940,transparent)}
+
+.image-frame,
+.data-card,
+.step,
+.formula-card,
+.code-panel,
+.result-card,
+.result-table-wrap,
+.disp-list div,
+.summary-strip div{
+  background:linear-gradient(160deg,rgba(21,28,51,.90),rgba(16,13,29,.94));
+  border-color:rgba(255,255,255,.10);
+}
+.image-frame{box-shadow:0 24px 70px rgba(0,0,0,.3)}
+.image-label{background:rgba(9,12,25,.9);border-color:rgba(236,126,80,.35);color:#f4a174}
+.step:hover,.formula-card.highlight{border-color:rgba(239,128,81,.5);background:linear-gradient(145deg,rgba(98,23,49,.24),rgba(22,31,58,.92))}
+
+.code-nav button{background:rgba(17,24,44,.9);border-color:rgba(255,255,255,.12);color:#e9e3e2}
+.code-nav button:hover,.code-nav button.active{background:linear-gradient(135deg,#8b2b43,#d65c3e);color:white;border-color:#e87b50}
+.code-panel pre{background:#080b16;border-color:rgba(255,255,255,.10);color:#fff7ef}
+
+.result-card.tension{border-top:3px solid #f08a60}
+.result-card.compression{border-top:3px solid #6f83bb}
+.result-card.zero{border-top:3px solid #a56a86}
+.tag.c{color:#dce5ff;border-color:rgba(126,151,215,.46)}
+.tag.z{color:#efc4d5;border-color:rgba(172,91,126,.5)}
+
+#results .result-table-wrap{
+  border:2px solid rgba(239,128,81,.55);
+  background:linear-gradient(155deg,rgba(16,24,47,.97),rgba(21,12,28,.98));
+  box-shadow:0 26px 80px rgba(0,0,0,.34),0 0 0 1px rgba(255,255,255,.025) inset;
+}
+#results .table-title{
+  background:linear-gradient(90deg,rgba(111,30,55,.58),rgba(31,43,79,.72),rgba(186,67,42,.22));
+  border-bottom:1px solid rgba(239,128,81,.38);
+}
+#results .result-table th{
+  background:linear-gradient(90deg,rgba(24,34,62,.96),rgba(35,23,45,.95));
+  border-bottom:2px solid rgba(239,128,81,.32);
+}
+#results .result-table tr:nth-child(even) td{background:rgba(255,255,255,.018)}
+#results .result-table tr:hover td{background:rgba(234,110,72,.055)}
+
+.summary-strip{background:rgba(239,128,81,.28);border-color:rgba(239,128,81,.28)}
+.final{border-color:rgba(255,255,255,.10)}
+footer{color:#aaa8b2}
+
+/* Cream typography for a softer luxury look while remaining projector-safe */
+.hero h1,.section-head h2,.result-hero h3,.presentation-card h2,.final h2,
+.formula-body h3,.data-card strong,.result-card strong,.displacement-box h3{
+  color:var(--cream);
+  text-shadow:0 2px 18px rgba(0,0,0,.16);
+}
+
+/* Decorative luminous ribbons at the top hero, matching the reference mood */
+.hero{position:relative}
+.hero::before,.hero::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  filter:blur(2px);
+  opacity:.62;
+  border-radius:999px;
+  z-index:-1;
+}
+.hero::before{
+  width:48vw;height:15vw;left:-12vw;top:7vh;
+  background:linear-gradient(100deg,rgba(114,27,54,.85),rgba(218,80,48,.72),rgba(242,139,82,.18));
+  transform:rotate(-12deg) skewX(-20deg);
+  filter:blur(18px);
+}
+.hero::after{
+  width:52vw;height:17vw;right:-18vw;top:15vh;
+  background:linear-gradient(110deg,rgba(28,43,84,.75),rgba(59,75,121,.62),rgba(147,42,59,.48));
+  transform:rotate(8deg) skewX(18deg);
+  filter:blur(20px);
+}
+
+@media(max-width:900px){
+  body{background-attachment:scroll}
+  .hero::before,.hero::after{opacity:.38}
+}
