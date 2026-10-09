@@ -169,56 +169,225 @@
 
     <section class="section code-explain" id="code">
       <div class="section-head reveal">
-        <p class="eyebrow">04 · PYTHON WALKTHROUGH</p>
-        <h2>ອ່ານ Code ໃຫ້ເປັນພາສາວິສະວະກຳ</h2>
-        <p>ເວລາ Present ບໍ່ຈຳເປັນອະທິບາຍ Syntax Python ທຸກຕົວ. ໃຫ້ອະທິບາຍວ່າແຕ່ລະ Block ກຳລັງເຮັດຫຍັງທາງ Structural Analysis.</p>
+        <p class="eyebrow">04 · PYTHON CODE EXPLAINED</p>
+        <h2>ເຂົ້າໃຈ Code ທີລະຄຳສັ່ງ</h2>
+        <p>ພາກນີ້ຈະບໍ່ພຽງແຕ່ບອກວ່າ Code ເຮັດຫຍັງ — ແຕ່ຈະອະທິບາຍວ່າ <b>ມັນແມ່ນ Code ປະເພດໃດ, ຄຳສັ່ງໃດ, ໃຊ້ເຮັດຫຍັງ</b> ແລະປຽບທຽບກັບຮູບແບບ Python/NumPy ທົ່ວໄປ.</p>
       </div>
+
+      <div class="code-language-banner reveal">
+        <div><span>LANGUAGE</span><strong>Python</strong><small>ພາສາ Programming ທີ່ໃຊ້ຂຽນ Solver</small></div>
+        <div><span>LIBRARY</span><strong>NumPy</strong><small>ໃຊ້ຈັດການ Vector, Matrix ແລະ Linear Algebra</small></div>
+        <div><span>ENGINEERING METHOD</span><strong>Direct Stiffness</strong><small>ແປງບັນຫາໂຄງສ້າງເປັນ Matrix Equation</small></div>
+      </div>
+
       <div class="code-layout">
         <aside class="code-nav reveal">
           <button class="active" data-target="c1">01 Nodes</button><button data-target="c2">02 Members</button><button data-target="c3">03 Material</button><button data-target="c4">04 DOF</button><button data-target="c5">05 Stiffness</button><button data-target="c6">06 Assembly</button><button data-target="c7">07 Load</button><button data-target="c8">08 Supports</button><button data-target="c9">09 Solve</button><button data-target="c10">10 Force</button><button data-target="c11">11 Output</button>
         </aside>
         <div class="code-panels reveal delay-1">
-          <section class="code-panel active" id="c1"><h3>01 · NODE COORDINATES</h3><pre><code>nodes = {
+
+          <section class="code-panel active" id="c1">
+            <div class="code-topic"><span>01</span><div><small>DATA STRUCTURE + NUMPY ARRAY</small><h3>NODE COORDINATES</h3></div></div>
+            <div class="code-info-grid">
+              <article><b>ນີ້ແມ່ນ Code ຫຍັງ?</b><p>ເປັນ <strong>Python dictionary</strong> ທີ່ເກັບຊື່ Node ແລະ Coordinate 3D ຂອງມັນ.</p></article>
+              <article><b>ຄຳສັ່ງສຳຄັນ</b><p><code>{ }</code> = dictionary, <code>np.array()</code> = ສ້າງ NumPy vector/array.</p></article>
+              <article><b>ໃຊ້ເຮັດຫຍັງ?</b><p>ໃຫ້ Solver ຮູ້ຕຳແໜ່ງ x, y, z ຂອງແຕ່ລະ Node ເພື່ອຫາ Member length ແລະ direction.</p></article>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-card mine"><span>CODE ຂອງຂ້ອຍ</span><pre><code>nodes = {
  'E': np.array([4,0,0]),
  'G': np.array([4,0,4]),
  'B': np.array([0,-2,0]),
  'C': np.array([0,-2,4]),
  'A': np.array([0,2,0]),
  'D': np.array([0,2,4])
-}</code></pre><p>ສ້າງ Coordinate ຂອງທຸກ Node ໃນຮູບ [x, y, z]. ນີ້ແມ່ນ Geometry input.</p></section>
-          <section class="code-panel" id="c2"><h3>02 · MEMBERS</h3><pre><code>members = [
+}</code></pre></div>
+              <div class="compare-card generic"><span>ຮູບແບບ PYTHON ທົ່ວໄປ</span><pre><code>points = {
+ "P1": np.array([x1, y1, z1]),
+ "P2": np.array([x2, y2, z2])
+}</code></pre><p>ໂຄງສ້າງຄືກັນ: <b>key</b> = ຊື່ຈຸດ, <b>value</b> = vector coordinate.</p></div>
+            </div>
+          </section>
+
+          <section class="code-panel" id="c2">
+            <div class="code-topic"><span>02</span><div><small>LIST + TUPLE</small><h3>MEMBER CONNECTIVITY</h3></div></div>
+            <div class="code-info-grid">
+              <article><b>ນີ້ແມ່ນ Code ຫຍັງ?</b><p>ເປັນ Python <strong>list</strong> ທີ່ຂ້າງໃນເປັນ <strong>tuple</strong> 2 ຄ່າ.</p></article>
+              <article><b>ຄຳສັ່ງສຳຄັນ</b><p><code>[ ]</code> = list, <code>('G','E')</code> = tuple ທີ່ບອກ start node ແລະ end node.</p></article>
+              <article><b>ໃຊ້ເຮັດຫຍັງ?</b><p>ກຳນົດ Connectivity: ແຕ່ລະ bar ເຊື່ອມ Node ໃດຫາ Node ໃດ.</p></article>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-card mine"><span>CODE ຂອງຂ້ອຍ</span><pre><code>members = [
  ('G','E'), ('G','C'), ('G','D'),
  ('E','B'), ('E','A'), ('E','D')
-]</code></pre><p>ແຕ່ລະ tuple ແມ່ນ 1 Member. ຕົວຢ່າງ ('G','E') ໝາຍເຖິງ Member GE.</p></section>
-          <section class="code-panel" id="c3"><h3>03 · MATERIAL</h3><pre><code>E_mod = 1.0
-A = 1.0</code></pre><p>ກຳນົດ E ແລະ A. ໃນ code ນີ້ໃຊ້ 1.0 ເພື່ອສາທິດແບບ normalized; ຖ້າຫາ displacement ຈິງ ຕ້ອງໃສ່ E ແລະ A ຕາມຫົວໜ່ວຍຈິງ.</p></section>
-          <section class="code-panel" id="c4"><h3>04 · DOF MAPPING</h3><pre><code>dof_map = {n: [3*i, 3*i+1, 3*i+2]
-           for i,n in enumerate(node_list)}
-ndof = 3 * len(nodes)</code></pre><p>3D Truss 1 Node ມີ 3 translational DOF. 6 Nodes ⇒ 18 DOF.</p></section>
-          <section class="code-panel" id="c5"><h3>05 · ELEMENT STIFFNESS</h3><pre><code>L_vec = x2 - x1
-L = np.linalg.norm(L_vec)
-l, m, n = L_vec / L
+]</code></pre></div>
+              <div class="compare-card generic"><span>ຮູບແບບທົ່ວໄປ</span><pre><code>elements = [
+ ('P1','P2'),
+ ('P2','P3')
+]</code></pre><p>ໃນ FEM/Truss ມັກເອີ້ນ list ນີ້ວ່າ <b>element connectivity</b>.</p></div>
+            </div>
+          </section>
 
-k = (E_mod*A/L) * np.array([...])</code></pre><p>ຫາ Member vector, length, direction cosines ແລະສ້າງ 6×6 stiffness matrix.</p></section>
-          <section class="code-panel" id="c6"><h3>06 · ASSEMBLY</h3><pre><code>for (n1, n2) in members:
+          <section class="code-panel" id="c3">
+            <div class="code-topic"><span>03</span><div><small>VARIABLE ASSIGNMENT</small><h3>MATERIAL / SECTION</h3></div></div>
+            <div class="code-info-grid">
+              <article><b>ນີ້ແມ່ນ Code ຫຍັງ?</b><p>ເປັນການສ້າງ Python variables ເພື່ອເກັບຄ່າ Material ແລະ Section.</p></article>
+              <article><b>ຄຳສັ່ງສຳຄັນ</b><p><code>=</code> ແມ່ນ assignment operator: ເອົາຄ່າດ້ານຂວາໄປເກັບໃນຕົວແປດ້ານຊ້າຍ.</p></article>
+              <article><b>ໃຊ້ເຮັດຫຍັງ?</b><p><b>E</b> ຄວບຄຸມຄວາມແຂງຂອງວັດສະດຸ ແລະ <b>A</b> ແມ່ນພື້ນທີ່ໜ້າຕັດ.</p></article>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-card mine"><span>CODE ຂອງຂ້ອຍ</span><pre><code>E_mod = 1.0
+A = 1.0</code></pre><p>ໃຊ້ 1.0 ເພື່ອສາທິດ normalized model.</p></div>
+              <div class="compare-card generic"><span>ຕົວຢ່າງຄ່າຈິງ</span><pre><code>E_mod = 200e9   # Pa
+A = 0.002        # m²</code></pre><p>ເມື່ອຄຳນວນ displacement ຈິງ ຕ້ອງໃຊ້ unit ໃຫ້ສອດຄ່ອງກັນ.</p></div>
+            </div>
+          </section>
+
+          <section class="code-panel" id="c4">
+            <div class="code-topic"><span>04</span><div><small>DICTIONARY COMPREHENSION</small><h3>DOF MAPPING</h3></div></div>
+            <div class="code-info-grid">
+              <article><b>ນີ້ແມ່ນ Code ຫຍັງ?</b><p>ເປັນ <strong>dictionary comprehension</strong> ທີ່ສ້າງເລກ DOF ໃຫ້ Node ອັດຕະໂນມັດ.</p></article>
+              <article><b>ຄຳສັ່ງສຳຄັນ</b><p><code>enumerate()</code> ໃຫ້ index + value, <code>for</code> ວົນຜ່ານ nodes, <code>3*i</code> ສ້າງ 3 DOF/Node.</p></article>
+              <article><b>ໃຊ້ເຮັດຫຍັງ?</b><p>ແປ Node ຈາກຊື່ A,B,C... ໄປເປັນ index ຂອງ Global Matrix.</p></article>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-card mine"><span>CODE ຂອງຂ້ອຍ</span><pre><code>dof_map = {
+ n: [3*i, 3*i+1, 3*i+2]
+ for i,n in enumerate(node_list)
+}
+ndof = 3 * len(nodes)</code></pre></div>
+              <div class="compare-card generic"><span>ແບບຂຽນຍາວ ແຕ່ເຫັນ logic ງ່າຍ</span><pre><code>dof_map = {}
+for i, node in enumerate(node_list):
+    dof_map[node] = [3*i, 3*i+1, 3*i+2]</code></pre><p>2 ແບບນີ້ໄດ້ຜົນຄືກັນ.</p></div>
+            </div>
+          </section>
+
+          <section class="code-panel" id="c5">
+            <div class="code-topic"><span>05</span><div><small>FUNCTION + LINEAR ALGEBRA</small><h3>ELEMENT STIFFNESS</h3></div></div>
+            <div class="code-info-grid">
+              <article><b>ນີ້ແມ່ນ Code ຫຍັງ?</b><p>ເປັນ Python <strong>function</strong> ທີ່ຮັບ Node 2 ຈຸດ ແລ້ວຄືນ stiffness matrix 6×6.</p></article>
+              <article><b>ຄຳສັ່ງສຳຄັນ</b><p><code>def</code> ສ້າງ function, <code>np.linalg.norm()</code> ຫາຄວາມຍາວ vector, <code>return</code> ສົ່ງ matrix ກັບອອກ.</p></article>
+              <article><b>ໃຊ້ເຮັດຫຍັງ?</b><p>ຄຳນວນ L, direction cosines (l,m,n) ແລະ element stiffness ຕາມສູດ 3D Truss.</p></article>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-card mine"><span>CODE ຂອງຂ້ອຍ</span><pre><code>def element_stiffness(n1, n2):
+    x1 = nodes[n1]
+    x2 = nodes[n2]
+    L_vec = x2 - x1
+    L = np.linalg.norm(L_vec)
+    l, m, n = L_vec / L
+    k = (E_mod*A/L) * np.array([...])
+    return k</code></pre></div>
+              <div class="compare-card generic"><span>FUNCTION ທົ່ວໄປ</span><pre><code>def function_name(input1, input2):
+    result = ...
+    return result</code></pre><p>Code ຂອງຂ້ອຍໃຊ້ pattern ດຽວກັນ ແຕ່ result ແມ່ນ Engineering Matrix.</p></div>
+            </div>
+          </section>
+
+          <section class="code-panel" id="c6">
+            <div class="code-topic"><span>06</span><div><small>NESTED FOR LOOPS + MATRIX ASSEMBLY</small><h3>GLOBAL ASSEMBLY</h3></div></div>
+            <div class="code-info-grid">
+              <article><b>ນີ້ແມ່ນ Code ຫຍັງ?</b><p>ເປັນ nested <strong>for loops</strong> ເພື່ອນຳ element stiffness ໄປບວກໃນ Global Matrix.</p></article>
+              <article><b>ຄຳສັ່ງສຳຄັນ</b><p><code>for</code> = ວົນຊ້ຳ, <code>+=</code> = ບວກຄ່າເຂົ້າຂອງເກົ່າ, <code>K[row,col]</code> = matrix indexing.</p></article>
+              <article><b>ໃຊ້ເຮັດຫຍັງ?</b><p>ຮວບຮວມ stiffness ຂອງທຸກ Member ເປັນ Global [K].</p></article>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-card mine"><span>CODE ຂອງຂ້ອຍ</span><pre><code>for (n1, n2) in members:
     k = element_stiffness(n1, n2)
     dofs = dof_map[n1] + dof_map[n2]
-    ...
-    K[dofs[i], dofs[j]] += k[i,j]</code></pre><p>ວາງ stiffness ຂອງແຕ່ລະ member ເຂົ້າຕຳແໜ່ງຂອງ Global [K].</p></section>
-          <section class="code-panel" id="c7"><h3>07 · FORCE VECTOR</h3><pre><code>F = np.zeros(ndof)
+    for i in range(6):
+        for j in range(6):
+            K[dofs[i], dofs[j]] += k[i,j]</code></pre></div>
+              <div class="compare-card generic"><span>LOGIC ທົ່ວໄປ</span><pre><code>for each_element in elements:
+    get element_matrix
+    get global_indices
+    add element_matrix into global_matrix</code></pre><p>ນີ້ແມ່ນ Assembly concept ທີ່ໃຊ້ໃນ FEM.</p></div>
+            </div>
+          </section>
+
+          <section class="code-panel" id="c7">
+            <div class="code-topic"><span>07</span><div><small>NUMPY ZEROS + INDEXING</small><h3>FORCE VECTOR</h3></div></div>
+            <div class="code-info-grid">
+              <article><b>ນີ້ແມ່ນ Code ຫຍັງ?</b><p>ສ້າງ vector ແຮງທີ່ເລີ່ມຈາກ 0 ທຸກ DOF ແລ້ວໃສ່ load ຕາມ index.</p></article>
+              <article><b>ຄຳສັ່ງສຳຄັນ</b><p><code>np.zeros(ndof)</code> = vector ສູນ, <code>F[index] = value</code> = ກຳນົດ load ທີ່ DOF ນັ້ນ.</p></article>
+              <article><b>ໃຊ້ເຮັດຫຍັງ?</b><p>ສ້າງ {F} ສຳລັບສົມການ {F}=[K]{D}.</p></article>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-card mine"><span>CODE ຂອງຂ້ອຍ</span><pre><code>F = np.zeros(ndof)
 F[dof_map['G'][1]] = -70
-F[dof_map['G'][2]] = -40</code></pre><p>ສ້າງ vector ແຮງຂະໜາດ 18 ແລ້ວໃສ່ load ທີ່ DOF y ແລະ z ຂອງ Node G.</p></section>
-          <section class="code-panel" id="c8"><h3>08 · BOUNDARY CONDITIONS</h3><pre><code>fixed_nodes = ['A','B','C','D']
+F[dof_map['G'][2]] = -40</code></pre></div>
+              <div class="compare-card generic"><span>ຮູບແບບທົ່ວໄປ</span><pre><code>F = np.zeros(number_of_dof)
+F[dof_y] = load_y
+F[dof_z] = load_z</code></pre><p>ເຄື່ອງໝາຍ − ບອກທິດຂອງ load ຕາມ sign convention.</p></div>
+            </div>
+          </section>
+
+          <section class="code-panel" id="c8">
+            <div class="code-topic"><span>08</span><div><small>BOUNDARY CONDITION LOGIC</small><h3>SUPPORTS</h3></div></div>
+            <div class="code-info-grid">
+              <article><b>ນີ້ແມ່ນ Code ຫຍັງ?</b><p>ເປັນ logic ສຳລັບລວບລວມ DOF ທີ່ຖືກ fix.</p></article>
+              <article><b>ຄຳສັ່ງສຳຄັນ</b><p><code>fixed_dofs += dof_map[n]</code> ນຳ DOF ຂອງແຕ່ລະ support ມາຕໍ່ໃນ list.</p></article>
+              <article><b>ໃຊ້ເຮັດຫຍັງ?</b><p>ກຳນົດ displacement = 0 ທີ່ A, B, C, D ແລະແຍກ free DOF ອອກມາ.</p></article>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-card mine"><span>CODE ຂອງຂ້ອຍ</span><pre><code>fixed_nodes = ['A','B','C','D']
 fixed_dofs = []
 for n in fixed_nodes:
-    fixed_dofs += dof_map[n]</code></pre><p>Node A, B, C, D ຖືກມອງເປັນ supports ແລະ lock 3 DOF ຕໍ່ Node.</p></section>
-          <section class="code-panel" id="c9"><h3>09 · SOLVE DISPLACEMENTS</h3><pre><code>K_ff = K[np.ix_(free_dofs, free_dofs)]
+    fixed_dofs += dof_map[n]
+free_dofs = sorted(set(range(ndof)) - set(fixed_dofs))</code></pre></div>
+              <div class="compare-card generic"><span>IDEA ທົ່ວໄປ</span><pre><code>fixed = [known restrained dof]
+all_dof = [0, 1, 2, ...]
+free = all_dof - fixed</code></pre><p>ໃນ Structural Analysis ນີ້ເອີ້ນວ່າ applying boundary conditions.</p></div>
+            </div>
+          </section>
+
+          <section class="code-panel" id="c9">
+            <div class="code-topic"><span>09</span><div><small>ARRAY SLICING + LINEAR SOLVER</small><h3>SOLVE DISPLACEMENTS</h3></div></div>
+            <div class="code-info-grid">
+              <article><b>ນີ້ແມ່ນ Code ຫຍັງ?</b><p>ເປັນ NumPy Linear Algebra ສຳລັບສ້າງ reduced system ແລະແກ້ສົມການ.</p></article>
+              <article><b>ຄຳສັ່ງສຳຄັນ</b><p><code>np.ix_()</code> ເລືອກ rows/columns, <code>np.linalg.solve(A,b)</code> ແກ້ A x = b.</p></article>
+              <article><b>ໃຊ້ເຮັດຫຍັງ?</b><p>ແກ້ [Kff]{Df}={Ff} ເພື່ອຫາ displacement ຂອງ free DOF.</p></article>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-card mine"><span>CODE ຂອງຂ້ອຍ</span><pre><code>K_ff = K[np.ix_(free_dofs, free_dofs)]
 F_ff = F[free_dofs]
-D_free = np.linalg.solve(K_ff, F_ff)</code></pre><p>ເລືອກສະເພາະ free DOF ແລ້ວແກ້ linear equations ເພື່ອຫາ displacement.</p></section>
-          <section class="code-panel" id="c10"><h3>10 · MEMBER FORCE</h3><pre><code>T = np.array([-l,-m,-n,l,m,n])
-q = (E_mod*A/L) * np.dot(T, u)</code></pre><p>Project nodal displacement ເຂົ້າແນວ Member ແລ້ວຄູນ EA/L ເພື່ອຫາ axial force.</p></section>
-          <section class="code-panel" id="c11"><h3>11 · OUTPUT</h3><pre><code>typ = "Tension" if f &gt; 0 else "Compression"
-print(f"{m}: {f:.2f} ({typ})")</code></pre><p>ຖ້າ q ເປັນບວກ ລາຍງານ Tension; ຖ້າເປັນລົບ ລາຍງານ Compression.</p></section>
+D_free = np.linalg.solve(K_ff, F_ff)</code></pre></div>
+              <div class="compare-card generic"><span>ຮູບແບບທົ່ວໄປ</span><pre><code>A = np.array([[...], [...]])
+b = np.array([...])
+x = np.linalg.solve(A, b)</code></pre><p>ໃນບັນຫານີ້ A = Kff, b = Ff ແລະ x = Df.</p></div>
+            </div>
+          </section>
+
+          <section class="code-panel" id="c10">
+            <div class="code-topic"><span>10</span><div><small>DOT PRODUCT + FUNCTION</small><h3>MEMBER FORCE</h3></div></div>
+            <div class="code-info-grid">
+              <article><b>ນີ້ແມ່ນ Code ຫຍັງ?</b><p>ເປັນ function ທີ່ຄຳນວນ axial force ຈາກ element displacement.</p></article>
+              <article><b>ຄຳສັ່ງສຳຄັນ</b><p><code>np.dot(T,u)</code> = dot product ຂອງ vector 2 ຊຸດ, ໃຊ້ project displacement ເຂົ້າແນວ member.</p></article>
+              <article><b>ໃຊ້ເຮັດຫຍັງ?</b><p>ແປ nodal displacement ເປັນ axial deformation ແລ້ວຄູນ EA/L ເພື່ອໄດ້ axial force.</p></article>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-card mine"><span>CODE ຂອງຂ້ອຍ</span><pre><code>T = np.array([-l, -m, -n, l, m, n])
+q = (E_mod*A/L) * np.dot(T, u)</code></pre></div>
+              <div class="compare-card generic"><span>DOT PRODUCT ທົ່ວໄປ</span><pre><code>a = np.array([a1, a2, a3])
+b = np.array([b1, b2, b3])
+value = np.dot(a, b)</code></pre><p>ຄຳສັ່ງດຽວກັນ ແຕ່ໃນງານນີ້ vector ມີ 6 terms.</p></div>
+            </div>
+          </section>
+
+          <section class="code-panel" id="c11">
+            <div class="code-topic"><span>11</span><div><small>CONDITIONAL EXPRESSION + F-STRING</small><h3>OUTPUT / REPORT</h3></div></div>
+            <div class="code-info-grid">
+              <article><b>ນີ້ແມ່ນ Code ຫຍັງ?</b><p>ເປັນ conditional expression ແລະ formatted string ສຳລັບລາຍງານຜົນ.</p></article>
+              <article><b>ຄຳສັ່ງສຳຄັນ</b><p><code>if ... else</code> ເລືອກ Tension/Compression, <code>f"..."</code> = f-string, <code>:.2f</code> = ສະແດງ 2 ຕຳແໜ່ງທົດສະນິຍົມ.</p></article>
+              <article><b>ໃຊ້ເຮັດຫຍັງ?</b><p>ປ່ຽນຄ່າ q ທີ່ເປັນຕົວເລກໃຫ້ເປັນຜົນທີ່ຄົນອ່ານເຂົ້າໃຈໄດ້.</p></article>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-card mine"><span>CODE ຂອງຂ້ອຍ</span><pre><code>typ = "Tension" if f &gt; 0 else "Compression"
+print(f"{m}: {f:.2f} ({typ})")</code></pre></div>
+              <div class="compare-card generic"><span>ຮູບແບບທົ່ວໄປ</span><pre><code>status = "Pass" if value &gt; 0 else "Fail"
+print(f"Result = {value:.2f} ({status})")</code></pre><p>ເປັນ pattern Python ທົ່ວໄປ; ໃນ Code ຂອງຂ້ອຍປ່ຽນເປັນຄວາມໝາຍທາງໂຄງສ້າງ.</p></div>
+            </div>
+          </section>
         </div>
       </div>
     </section>
