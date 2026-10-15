@@ -17,3 +17,9 @@ Static website in Lao for presenting a 3D truss Direct Stiffness Method assignme
 - `assets/problem.jpeg` — original assignment image
 
 No build system is required.
+
+
+## V8 updates
+- Instructor is displayed separately from group members.
+- Added two large analysis figures in the Results section: displacement/deformed shape and member axial force.
+- Figure sizing optimized for projector presentation.

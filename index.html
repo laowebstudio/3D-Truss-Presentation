@@ -37,43 +37,49 @@
   <main id="top">
     <section id="team" class="section team-section">
       <div class="team-backdrop" aria-hidden="true"></div>
+
       <div class="team-heading reveal">
         <p class="eyebrow">GROUP PRESENTATION · STRUCTURAL ANALYSIS</p>
-        <h1>ສະມາຊິກກຸ່ມ</h1>
-        <p class="team-subtitle">3D TRUSS · DIRECT STIFFNESS METHOD · PYTHON</p>
+        <h1>3D TRUSS · DIRECT STIFFNESS METHOD</h1>
+        <p class="team-subtitle">PYTHON STRUCTURAL ANALYSIS PRESENTATION</p>
       </div>
 
-      <div class="teacher-card reveal delay-1">
-        <div class="teacher-badge">ອຈ</div>
-        <div class="teacher-copy">
-          <span>ອາຈານສອນ</span>
-          <strong>ອຈ ພອນເພັດ ມຸນນະລາດ</strong>
-          <small>Instructor · Structural Analysis</small>
+      <section class="instructor-block reveal delay-1" aria-label="Instructor">
+        <p class="intro-label">ອາຈານຜູ້ສອນ</p>
+        <div class="teacher-card">
+          <div class="teacher-badge">ອຈ</div>
+          <div class="teacher-copy">
+            <strong>ອຈ ພອນເພັດ ມຸນນະລາດ</strong>
+            <small>Instructor · Structural Analysis</small>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div class="members-grid">
-        <article class="member-card reveal">
-          <span class="member-no">01</span>
-          <div><strong>ນ. ທິດາພອນ ອິນທະວົງ</strong><small>225N0414/23</small></div>
-        </article>
-        <article class="member-card reveal delay-1">
-          <span class="member-no">02</span>
-          <div><strong>ນ. ຫົງສາ ສອນມະລີຈັນ</strong><small>225N0396/23</small></div>
-        </article>
-        <article class="member-card reveal">
-          <span class="member-no">03</span>
-          <div><strong>ທ. ປິລະມິດ ສີວິໄລ</strong><small>225N0390/23</small></div>
-        </article>
-        <article class="member-card reveal delay-1">
-          <span class="member-no">04</span>
-          <div><strong>ທ. ໂຕເຫຼັກ ຈັນທະວົງ</strong><small>225N0418/23</small></div>
-        </article>
-        <article class="member-card reveal">
-          <span class="member-no">05</span>
-          <div><strong>ທ. ນັດທະພົນ ສຸລິນທອນ</strong><small>225N0386/23</small></div>
-        </article>
-      </div>
+      <section class="group-block reveal" aria-label="Group members">
+        <p class="intro-label">ສະມາຊິກກຸ່ມ</p>
+        <div class="members-grid">
+          <article class="member-card reveal">
+            <span class="member-no">01</span>
+            <div><strong>ນ. ທິດາພອນ ອິນທະວົງ</strong><small>225N0414/23</small></div>
+          </article>
+          <article class="member-card reveal delay-1">
+            <span class="member-no">02</span>
+            <div><strong>ນ. ຫົງສາ ສອນມະລີຈັນ</strong><small>225N0396/23</small></div>
+          </article>
+          <article class="member-card reveal">
+            <span class="member-no">03</span>
+            <div><strong>ທ. ປິລະມິດ ສີວິໄລ</strong><small>225N0390/23</small></div>
+          </article>
+          <article class="member-card reveal delay-1">
+            <span class="member-no">04</span>
+            <div><strong>ທ. ໂຕເຫຼັກ ຈັນທະວົງ</strong><small>225N0418/23</small></div>
+          </article>
+          <article class="member-card reveal">
+            <span class="member-no">05</span>
+            <div><strong>ທ. ນັດທະພົນ ສຸລິນທອນ</strong><small>225N0386/23</small></div>
+          </article>
+        </div>
+      </section>
 
       <div class="team-actions reveal">
         <a class="btn primary" href="#presentation">ເລີ່ມນຳສະເໜີ</a>
@@ -453,6 +459,58 @@ print(f"Result = {value:.2f} ({status})")</code></pre><p>ເປັນ pattern Py
           <p>ຂະໜາດແຮງເທົ່າກັນ <b>78.26</b> ແຕ່ມີສະຖານະຕ່າງກັນ: GC ເປັນ Compression ແລະ GD ເປັນ Tension.</p>
         </div>
         <div class="result-number">78.26<span>Force unit</span></div>
+      </div>
+
+      <div class="result-image-stack">
+        <article class="analysis-figure reveal">
+          <div class="analysis-figure-head">
+            <div>
+              <span class="figure-no">01</span>
+              <p class="eyebrow">DISPLACEMENT · DEFORMED SHAPE</p>
+              <h3>ຮູບການເສຍຮູບຂອງ Model</h3>
+            </div>
+            <span class="figure-badge">ข้อ 9 · SOLVE {D}</span>
+          </div>
+
+          <img src="assets/displacement-deformed-model.png"
+               alt="ຮູບການເສຍຮູບຂອງ 3D truss model"
+               class="analysis-result-image">
+
+          <div class="analysis-caption">
+            <strong>ໃຊ້ອະທິບາຍ Displacement</strong>
+            <p>
+              ຮູບນີ້ເປັນຮູບການເສຍຮູບຂອງ Model ຫຼັງຈາກ Code ແກ້ສົມຜົນ
+              <b>[K<sub>ff</sub>]{D<sub>f</sub>} = {F<sub>f</sub>}</b>.
+              ເສັ້ນທີ່ປ່ຽນຕຳແໜ່ງຊ່ວຍໃຫ້ເຫັນທິດທາງການເຄື່ອນຕົວ
+              ຫຼື <b>Displacement</b> ຂອງ Node ຢ່າງຊັດເຈນ.
+            </p>
+          </div>
+        </article>
+
+        <article class="analysis-figure reveal">
+          <div class="analysis-figure-head">
+            <div>
+              <span class="figure-no">02</span>
+              <p class="eyebrow">MEMBER FORCE · AXIAL FORCE</p>
+              <h3>ແຮງຕາມແກນ ທີ່ກະທຳໃນສິ້ນສ່ວນ</h3>
+            </div>
+            <span class="figure-badge">ข้อ 10 · MEMBER FORCE</span>
+          </div>
+
+          <img src="assets/member-axial-force.png"
+               alt="ແຮງຕາມແກນໃນສິ້ນສ່ວນ 3D truss"
+               class="analysis-result-image">
+
+          <div class="analysis-caption">
+            <strong>ໃຊ້ອະທິບາຍ Axial Force</strong>
+            <p>
+              ຮູບນີ້ສະແດງຄ່າ <b>Axial Force</b> ຂອງ Member ແຕ່ລະສິ້ນ
+              ທີ່ Code ຄຳນວນຈາກ
+              <b>q = (EA/L)[−l −m −n l m n]{D}</b>.
+              ຄ່າບວກໝາຍເຖິງ <b>Tension</b> ແລະ ຄ່າລົບໝາຍເຖິງ <b>Compression</b>.
+            </p>
+          </div>
+        </article>
       </div>
 
       <div class="results-grid">
